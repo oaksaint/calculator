@@ -53,6 +53,10 @@ html {
   flex-wrap: wrap;
 }
 
+.multiply {
+  padding-top: 12px;
+}
+
 .normal-button {
   width: 100px;
   height: 100px;
