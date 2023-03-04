@@ -1,3 +1,80 @@
 body {
   background-color: grey;
+  display: flex;
+  margin: 0;
+  height: 100%;
+  justify-content: center;
+}
+
+html {
+  margin: 0px;
+  height: 100%;
+  width: 100%;
+}
+
+.calc-body {
+  width: 500px;
+  height: 800px;
+  border: 1px solid black;
+  margin-top: 2%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: lightgray;
+}
+
+.display {
+  width: 80%;
+  height: 10%;
+  border: 1px solid black;
+  margin: 15px 15px 15px 15px;
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: xx-large;
+  background-color: white;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.operator-button {
+  border: 1px solid black;
+  margin: 15px 15px 15px 15px;
+  width: 15%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.digit-button {
+  border: 1px solid black;
+  margin: 15px 15px 15px 15px;
+  width: 20%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zero-button {
+  border: 1px solid black;
+  margin: 15px 15px 15px 15px;
+  width: 50%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.function-button {
+  border: 1px solid black;
+  margin: 15px 15px 15px 15px;
+  width: 40%;
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
