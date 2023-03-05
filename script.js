@@ -4,28 +4,31 @@
 let displayValue = document.querySelector('.display');
 const digits = document.getElementsByClassName('digit-button');
 const operators = document.getElementsByClassName('operator');
+const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
 // Declarations of variables that will be used as temporary values
-let firstValue;
-let secondValue;
+let previousValue;
+let nextValue;
 let chosenOperator;
+let total = 0;
+let hiddenDisplayValue;
 
 // Declaration of basic operation functions
 const add = function (number1, number2) {
-  return number1 + number2;
+  return Number(number1) + Number(number2);
 };
 
 const subtract = function (number1, number2) {
-  return number1 - number2;
+  return Number(number1) - Number(number2);
 };
 
 const multiply = function (number1, number2) {
-  return number1 * number2;
+  return Number(number1) * Number(number2);
 };
 
 const divide = function (number1, number2) {
-  return number1 / number2;
+  return Number(number1) / Number(number2);
 };
 
 // Declaration of the equals function
@@ -41,13 +44,6 @@ const operate = function (operator, number1, number2) {
   }
 };
 
-// Assign the display value to either the first or second value variables
-const getValue = function (value) {
-  if (value === 'firstValue') {
-    firstValue = displayValue.textContent;
-  } else secondValue = displayValue.textContent;
-};
-
 // Make the clicked numbers show up in the display panel
 const showValue = function () {
   for (let i = 0; i < digits.length; i++) {
@@ -61,5 +57,38 @@ const showValue = function () {
   }
 };
 
+// Logs the clicked operator in a variable, logs the previousNumber variable using the display panel data, clears the display panel
+const clickOperator = function () {
+  for (let i = 0; i < operators.length; i++) {
+    operators[i].addEventListener('click', function () {
+      chosenOperator = operators[i].textContent;
+      previousValue = displayValue.textContent;
+      displayValue.textContent = '';
+    });
+  }
+};
+
+const clickEquals = function () {
+  equalsButton.addEventListener('click', function () {
+    nextValue = displayValue.textContent;
+    total = operate(chosenOperator, previousValue, nextValue);
+    displayValue.textContent = total;
+  });
+};
+
+// Clears the display panel, and resets all variables.
+const clear = function () {
+  clearButton.addEventListener('click', function () {
+    displayValue.textContent = '';
+    previousValue = 0;
+    nextValue = 0;
+    chosenOperator = '';
+    total = 0;
+  });
+};
+
 // Calling the main functions of the application
 showValue();
+clickOperator();
+clickEquals();
+clear();
