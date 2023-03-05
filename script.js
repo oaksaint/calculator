@@ -8,39 +8,24 @@ const equalsButton = document.querySelector('.equals');
 const clearButton = document.querySelector('.clear');
 
 // Declarations of variables that will be used as temporary values
-let previousValue;
-let nextValue;
+let total;
+let currentValue;
 let chosenOperator;
-let total = 0;
-let hiddenDisplayValue;
 
-// Declaration of basic operation functions
-const add = function (number1, number2) {
-  return Number(number1) + Number(number2);
-};
-
-const subtract = function (number1, number2) {
-  return Number(number1) - Number(number2);
-};
-
-const multiply = function (number1, number2) {
-  return Number(number1) * Number(number2);
-};
-
-const divide = function (number1, number2) {
-  return Number(number1) / Number(number2);
-};
-
-// Declaration of the equals function
+// Do the desired operation with the desired numbers, by using the operator and the total and currentNumber variables
 const operate = function (operator, number1, number2) {
   if (operator === '+') {
-    return add(number1, number2);
+    return Number(number1) + Number(number2);
   } else if (operator === '-') {
-    return subtract(number1, number2);
+    return Number(number1) - Number(number2);
   } else if (operator === '*') {
-    return multiply(number1, number2);
+    return Number(number1) * Number(number2);
   } else if (operator === '/') {
-    return divide(number1, number2);
+    // Returns a cheeky message if the user tries to divide by zero
+    if (Number(number2) === 0) {
+      return 'NOT BY ZERO';
+    }
+    return Math.round((Number(number1) / Number(number2)) * 10) / 10;
   }
 };
 
@@ -57,22 +42,34 @@ const showValue = function () {
   }
 };
 
-// Logs the clicked operator in a variable, logs the previousNumber variable using the display panel data, clears the display panel
+// Logs the clicked operator in a variable, logs the currentValue variable using the display panel data, clears the display panel
 const clickOperator = function () {
   for (let i = 0; i < operators.length; i++) {
     operators[i].addEventListener('click', function () {
       chosenOperator = operators[i].textContent;
-      previousValue = displayValue.textContent;
+      total = displayValue.textContent;
       displayValue.textContent = '';
     });
   }
 };
 
+// When the equals button is clicked, run the operate function and assign it to the "total" variable
 const clickEquals = function () {
   equalsButton.addEventListener('click', function () {
-    nextValue = displayValue.textContent;
-    total = operate(chosenOperator, previousValue, nextValue);
+    currentValue = displayValue.textContent;
+    total = operate(chosenOperator, total, currentValue);
     displayValue.textContent = total;
+    // If the display value from the total overflows the screen, a message saying TOO BIG will be shown instead, and the display will be cleared in 1 second
+    if (displayValue.textContent.length > 12) {
+      displayValue.textContent = 'TOO BIG!';
+      clearTimeout();
+      // Display NOT BY ZERO from the return of a division by zero, and clear the display after 1 second
+    } else if (displayValue.textContent === 'NOT BY ZERO') {
+      clearTimeout();
+      // Display the result from the total normally
+    } else {
+      displayValue.textContent = total;
+    }
   });
 };
 
@@ -80,11 +77,16 @@ const clickEquals = function () {
 const clear = function () {
   clearButton.addEventListener('click', function () {
     displayValue.textContent = '';
-    previousValue = 0;
-    nextValue = 0;
-    chosenOperator = '';
     total = 0;
+    currentValue = 0;
+    chosenOperator = '';
   });
+};
+
+const clearTimeout = function () {
+  setTimeout(() => {
+    displayValue.textContent = '';
+  }, 1000);
 };
 
 // Calling the main functions of the application
