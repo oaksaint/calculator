@@ -73,7 +73,7 @@ const clickEquals = function () {
   });
 };
 
-// Clears the display panel, and resets all variables.
+// Clears the display panel, and resets all variables
 const clear = function () {
   clearButton.addEventListener('click', function () {
     displayValue.textContent = '';
@@ -83,9 +83,13 @@ const clear = function () {
   });
 };
 
+// Sets a timer for 1 second and resets all variables
 const clearTimeout = function () {
   setTimeout(() => {
     displayValue.textContent = '';
+    total = 0;
+    currentValue = 0;
+    chosenOperator = '';
   }, 1000);
 };
 
